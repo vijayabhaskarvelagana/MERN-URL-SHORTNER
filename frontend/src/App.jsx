@@ -80,10 +80,17 @@ function App() {
 				/>
 				<button
 					onClick={handleShorten}
-					className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600 transition-colors"
+					className={`w-full text-white p-3 rounded font-medium transition-colors flex items-center justify-center gap-2 ${loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"}`}
 					disabled={loading}
 				>
-					Shorten URL
+					{loading ? (
+						<>
+							<div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+							Processing...
+						</>
+					) : (
+						"Shorten URL"
+					)}
 				</button>
 
 				{shortUrl && (
