@@ -12,6 +12,7 @@ function App() {
 	const [shortUrl, setShortUrl] = useState("");
 	const [copied, setCopied] = useState(false);
 	const [qrImage, setQrImage] = useState("");
+	const [demoCopied, setDemoCopied] = useState(false);
 	const [loading, setLoading] = useState(false);
 
 	const handleShorten = async () => {
@@ -43,9 +44,32 @@ function App() {
 		setTimeout(() => setCopied(false), 2000); // Reset copied state after 2 seconds
 	};
 
+	const demoUrl = "https://images.unsplash.com/photo-1562874639-bd3f2fd7fcdc?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+
+	const handleDemoCopy = () => {
+		navigator.clipboard.writeText(demoUrl);
+		setDemoCopied(true);
+		setTimeout(() => setDemoCopied(false), 2000);
+	};
+
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gray-100">
 			<h1 className="text-4xl font-bold mb-6">MERN URL Shortener</h1>
+			
+			{/* Demo URL Box */}
+			<div className="w-full max-w-md mb-6 p-4 bg-blue-50 border-2 border-blue-300 rounded">
+				<p className="text-sm font-semibold text-blue-700 mb-2">📌 Demo URL</p>
+				<div className="bg-white p-3 rounded border border-blue-200 mb-3 break-all text-sm text-gray-700">
+					{demoUrl}
+				</div>
+				<button
+					onClick={handleDemoCopy}
+					className={`w-full px-3 py-2 rounded font-medium transition-colors ${demoCopied ? "bg-green-500 text-white" : "bg-blue-500 text-white hover:bg-blue-600"}`}
+				>
+					{demoCopied ? "✓ Copied!" : "Copy Demo URL"}
+				</button>
+			</div>
+
 			<div className="w-full max-w-md">
 				<input
 					type="text"
